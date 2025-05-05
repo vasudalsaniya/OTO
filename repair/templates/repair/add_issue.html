@@ -1,0 +1,454 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      body{
+        background-color: lightgray;
+        
+      }
+      .mainbody{
+        width: 100%;
+        height: 500px;
+        display: grid;
+        place-items: center;
+      
+      }
+      .navbar{
+        background-color: #ee6e73;
+      }
+      .maindiv{
+        width: 500px;
+        padding: 50px;
+        background-color: #ee6e73;
+        border-radius: 10px;
+       
+      }
+      #vehicle{
+        width: 100%;
+        text-transform: uppercase;
+        height: 30px;
+        color:white;
+        background-color: teal;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .subtn{
+        width: 100%;
+        height: 30px;
+        background-color: teal;
+        border: 0;
+        color: white;
+      }
+      ul li:hover{
+        background-color: black;
+        opacity: 0.4;
+      }
+    </style>
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+
+
+  <nav class="navbar navbar-default" style="color: white;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      </div>
+      <ul class="nav navbar-nav " style="float: right; ">
+        <li><a href="/account/profile" style="color: white;">Dashboard</a></li>
+        <li>  <a href="/vehicle/vehicles" style="color: white;">View your vehicles</a></li>
+        <li><a class="dropdown-trigger" href="/vehicle/addVehicle" style="color: white;" data-target="vehicle"> Add Vehicle</a></li>
+        <li> <a href="/repair/issues" style="color: white;">Repair Issues</a></li>
+        <li >            <form action="/account/logout" method="POST">
+            {%csrf_token%}
+            <input type="submit"  class="btn" style="background : #788383; margin-top: 8px;" value="Logout" >
+        </form></li>
+      </ul>
+    </div>
+  </nav>
+
+<div class="mainbody">
+  
+  <div class="maindiv">
+    <form method="POST">
+      {% csrf_token %}
+      <label for="vehicle">SELECT VEHICLE:</label>
+      <select id="vehicle" name="vehicle">
+      {% for vehicle in vehicles %}
+          <option value="{{ vehicle.id }}">{{ vehicle.registration_plate }}</option>
+      {% endfor %}
+      </select>
+      <br><br>
+      <label for="issue">ISSUE:</label>
+      <br>
+      <textarea id="issue" name="issue" rows="4" style="width: 100%;"></textarea>
+      <br><br>
+      <input type="submit" class="subtn" value="SUBMIT">
+    </form>
+  </div>
+</div>
+
+<!-- /#page-content-wrapper -->
+
+<!-- /#wrapper -->
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+<div class="container">
+<h1 class="display-3">You are not logged in</h1>
+</div>
+</div>
+{% endif %}
+<!-- Bootstrap core JavaScript -->
+<!-- Menu Toggle Script -->
+
+
+</body>
+
+</html> {% endcomment %}
+
+
+
+{% comment %} 
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehicle Issue Form</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f2f2f2;
+    }
+
+    .mainbody {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 70px);
+    }
+
+    .navbar {
+      background-color: #ee6e73 !important;
+      border-radius: 0;
+      margin-bottom: 0;
+    }
+
+    .navbar-nav > li > a {
+      color: white !important;
+    }
+
+    .navbar-nav > li:hover {
+      background-color: black !important;
+      opacity: 0.4;
+    }
+
+    .maindiv {
+      background-color: #ee6e73;
+      padding: 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #vehicle {
+      width: 100%;
+      height: 35px;
+      color: white;
+      background-color: teal;
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      text-transform: uppercase;
+    }
+
+    .subtn {
+      width: 100%;
+      height: 40px;
+      background-color: teal;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    textarea {
+      resize: none;
+    }
+  </style>
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" style="color:white;">Vehicle Service</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/account/profile">Dashboard</a></li>
+        <li><a href="/vehicle/vehicles">View Vehicles</a></li>
+        <li><a href="/vehicle/addVehicle">Add Vehicle</a></li>
+        <li><a href="/repair/issues">Repair Issues</a></li>
+        <li>
+          <form action="/account/logout" method="POST" style="margin: 8px;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-default" style="background-color: #788383; color: white;">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Form -->
+  <div class="mainbody">
+    <div class="maindiv">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="vehicle">Select Vehicle</label>
+          <select id="vehicle" name="vehicle" class="form-control">
+            {% for vehicle in vehicles %}
+              <option value="{{ vehicle.id }}">{{ vehicle.registration_plate }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="issue">Issue</label>
+          <textarea id="issue" name="issue" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="subtn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+{% else %}
+
+  <div class="jumbotron text-center">
+    <h1 class="display-3">You are not logged in</h1>
+    <p><a href="/account/login">Click here to log in</a></p>
+  </div>
+
+{% endif %}
+
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+ {% endcomment %}
+
+
+
+ {% load static %}
+ {% load crispy_forms_tags %}
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Vehicle Issue Form</title>
+ 
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <style>
+     * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+     }
+ 
+     body {
+       background-color: #f2f2f2;
+       font-family: 'Helvetica Neue', sans-serif;
+     }
+ 
+     .mainbody {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       min-height: calc(100vh - 70px);
+       padding: 40px 15px;
+     }
+ 
+     .navbar {
+       background-color: teal !important;
+       border-radius: 0;
+       margin-bottom: 0;
+     }
+ 
+     .navbar-nav > li > a {
+       color: white !important;
+     }
+ 
+     .navbar-nav > li:hover {
+       background-color: #004d40 !important;
+     }
+ 
+     .maindiv {
+       background-color: white;
+       padding: 40px 30px;
+       border-radius: 10px;
+       width: 100%;
+       max-width: 500px;
+       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+     }
+ 
+     .maindiv h3 {
+       text-align: center;
+       color: teal;
+       margin-bottom: 25px;
+     }
+ 
+     label {
+       font-weight: bold;
+       color: #555;
+     }
+ 
+     #vehicle,
+     textarea {
+       width: 100%;
+       padding: 8px 10px;
+       border-radius: 5px;
+       border: 1px solid #ccc;
+       margin-bottom: 20px;
+     }
+ 
+     #vehicle:focus,
+     textarea:focus {
+       border-color: teal;
+       outline: none;
+       box-shadow: 0 0 3px rgba(0, 128, 128, 0.4);
+     }
+ 
+     .subtn {
+       width: 100%;
+       height: 45px;
+       background-color: teal;
+       color: white;
+       font-weight: bold;
+       border: none;
+       border-radius: 5px;
+       transition: background-color 0.3s ease;
+     }
+ 
+     .subtn:hover {
+       background-color: #00695c;
+     }
+ 
+     .logout-form {
+       display: inline-block;
+       margin: 8px;
+     }
+ 
+     .logout-form button {
+       background-color: #4f5757;
+       color: white;
+     }
+ 
+     .jumbotron {
+       background-color: teal;
+       color: white;
+       padding: 50px;
+     }
+ 
+     .jumbotron a {
+       color: white;
+       font-weight: bold;
+     }
+   </style>
+ </head>
+ 
+ <body>
+ 
+ {% if user.is_authenticated %}
+ 
+   <!-- Navbar -->
+   <nav class="navbar navbar-default">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a class="navbar-brand" href="#" style="color:white;">Vehicle Service</a>
+       </div>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a href="/account/profile">Dashboard</a></li>
+         <li><a href="/vehicle/vehicles">View Vehicles</a></li>
+         <li><a href="/vehicle/addVehicle">Add Vehicle</a></li>
+         <li><a href="/repair/issues">Repair Issues</a></li>
+         <li>
+           <form action="/account/logout" method="POST" class="logout-form">
+             {% csrf_token %}
+             <button type="submit" class="btn btn-sm">Logout</button>
+           </form>
+         </li>
+       </ul>
+     </div>
+   </nav>
+ 
+   <!-- Main Form -->
+   <div class="mainbody">
+     <div class="maindiv">
+       <h3>Register a Vehicle Issue</h3>
+       <form method="POST">
+         {% csrf_token %}
+         <label for="vehicle">Select Vehicle</label>
+         <select id="vehicle" name="vehicle" required>
+           <option value="" disabled selected>-- Select a vehicle --</option>
+           {% for vehicle in vehicles %}
+             <option value="{{ vehicle.id }}">{{ vehicle.registration_plate }}</option>
+           {% endfor %}
+         </select>
+ 
+         <label for="issue">Issue</label>
+         <textarea id="issue" name="issue" rows="4" placeholder="Describe the issue..." required></textarea>
+ 
+         <button type="submit" class="subtn">Submit</button>
+       </form>
+     </div>
+   </div>
+ 
+ {% else %}
+ 
+   <div class="jumbotron text-center">
+     <h1>You are not logged in</h1>
+     <p><a href="/account/login">Click here to log in</a></p>
+   </div>
+ 
+ {% endif %}
+ 
+ <!-- JS -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+ </body>
+ 
+ </html>
+ 

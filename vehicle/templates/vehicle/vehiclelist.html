@@ -1,0 +1,280 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Vehicles</title>
+
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+</head>
+<style>
+.nav {
+    margin-bottom: 20px;
+}
+    .card-holder{
+        padding: 30px;
+        padding-left: 40px;
+        padding-right: 50px;
+    }
+    .welcome{
+        background: #808080;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #3fada8, #808080);  /* Chrome 10-25, Safari 5.1-6 */
+
+    }
+</style>
+<body>
+{% if user.is_authenticated %}
+    <div id="wrapper">
+        {% include 'driver/navbar.html' %}
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                            {%if success %}
+                            <div class="alert alert-success" role="alert">
+                                    {{ success }}
+                                  </div>
+                            {% endif %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col s12">
+                      <div class="welcome card-panel z-depth-3">
+                        
+                          <span style="padding-left: 43%;" class="white-text"><font color="black" size="20">Vehicles</font>
+                      </span>
+                      </div>
+                    </div>
+                                <!-- <form method="POST" style="margin: 0">
+                                    {% csrf_token %}
+                                    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+                                    <button id="search_submit" type="submit" name="searchb" class="btn btn-success">Submit</button>
+                                    <button id="search_submit" type="submit" name="viewallb" class="btn btn-primary">View All</button>
+                                </form> -->
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="row">
+                                    {% for vehicle in vehiclesList %}
+                                    <div class="col s8 m3">
+                                      <div class="card">
+                                        <div class="card-image">
+                                          <img width="300px" height="300px" src="{{vehicle.image.url }}">
+                                          <span class="card-title">{{vehicle.registration_plate}}</span>
+                                        </div>
+                                        
+                                        <div class="card-action">
+                                           <a href="/vehicle/delete/{{vehicle.id}}"><button class=" btn">Delete</button></a>
+                                       <a href="/vehicle/edit/{{vehicle.id}}"><button style="margin-top: 2%;" class=" btn">edit</button></a>
+                                        </div>
+                                          <!-- Modal Structure -->
+                                          <div id="modal1" class="modal">
+                                            <div class="modal-content">
+                                              <h4>{{vehicle.registration_plate}}</h4>
+                                              <ul class="collection">
+                                                                    {% if user.is_superuser %}
+                                                                        <li class="collection-item">Owner :{{vehicle.owner}}</li>
+                                                                    {% endif %}
+                                                                  <li class="collection-item">Price :{{vehicle.price}}</li>
+                                                                  <li class="collection-item">Cost per km :{{vehicle.cost_per_km}}</li>
+                                                                  <li class="collection-item">No of Kms Travelled : {{vehicle.no_of_km_travelled}}</li>
+                                                                  {% if vehicle.fuel_type == "P" %}
+                                                                  <li class="collection-item">Fuel Type : Petrol</li>
+                                                                  {% else %}
+                                                                  <li class="collection-item">Fuel Type : Diesel</li>    
+                                                                  {% endif %}
+                                                                  <li class="collection-item">Mileage : {{vehicle.mileage}}</li>
+                                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                                            </div>
+                                          </div>
+          
+                                      </div>
+                                    </div>
+                                    {% endfor %}
+                                  </div>
+                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">You are not logged in</h1>
+    </div>
+</div>
+{% endif %}
+    <!-- Bootstrap core JavaScript -->
+   
+    <script type="text/javascript">
+               
+              $(document).ready(function(){
+                $('.modal').modal();
+              });
+          
+    </script>
+    <!-- Menu Toggle Script -->
+    
+
+</body>
+
+</html> {% endcomment %}
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Vehicles</title>
+
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <style>
+    .welcome {
+      background: linear-gradient(to right, #3fada8, #808080);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .welcome h4 {
+      margin: 0;
+    }
+
+    .card-image img {
+      object-fit: cover;
+      height: 200px;
+    }
+
+    .vehicle-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .vehicle-actions .btn {
+      width: 48%;
+    }
+
+    .vehicle-card {
+      margin-bottom: 30px;
+    }
+
+    .alert {
+      margin: 20px auto;
+      width: 60%;
+    }
+
+    @media (max-width: 600px) {
+      .vehicle-actions {
+        flex-direction: column;
+      }
+
+      .vehicle-actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+    {% include 'driver/navbar.html' %}
+
+    <div class="container">
+      {% if success %}
+        <div class="card-panel green lighten-4 alert center-align">
+          <span class="green-text text-darken-4">{{ success }}</span>
+        </div>
+      {% endif %}
+
+      <div class="welcome z-depth-2 center-align white-text">
+        <h4>Vehicles</h4>
+      </div>
+
+      <div class="row">
+        {% for vehicle in vehiclesList %}
+          <div class="col s12 m6 l3 vehicle-card">
+            <div class="card hoverable">
+              <div class="card-image">
+                <img src="{{ vehicle.image.url }}" alt="{{ vehicle.registration_plate }}">
+                <span class="card-title">{{ vehicle.registration_plate }}</span>
+              </div>
+              <div class="card-content">
+                <p><strong>Mileage:</strong> {{ vehicle.mileage }}</p>
+                <p><strong>Fuel:</strong> {{ vehicle.fuel_type|yesno:"Petrol,Diesel" }}</p>
+              </div>
+              <div class="card-action vehicle-actions">
+                <a href="/vehicle/delete/{{ vehicle.id }}" class="btn red lighten-1">Delete</a>
+                <a href="/vehicle/edit/{{ vehicle.id }}" class="btn teal lighten-1">Edit</a>
+              </div>
+              <!-- Modal Trigger -->
+              <a class="modal-trigger center-align" href="#modal-{{ vehicle.id }}">More Info</a>
+            </div>
+          </div>
+
+          <!-- Modal Structure -->
+          <div id="modal-{{ vehicle.id }}" class="modal">
+            <div class="modal-content">
+              <h5>{{ vehicle.registration_plate }}</h5>
+              <ul class="collection">
+                {% if user.is_superuser %}
+                  <li class="collection-item">Owner: {{ vehicle.owner }}</li>
+                {% endif %}
+                <li class="collection-item">Price: {{ vehicle.price }}</li>
+                <li class="collection-item">Cost per km: {{ vehicle.cost_per_km }}</li>
+                <li class="collection-item">Distance Traveled: {{ vehicle.no_of_km_travelled }} km</li>
+                <li class="collection-item">Fuel Type: {{ vehicle.fuel_type|yesno:"Petrol,Diesel" }}</li>
+                <li class="collection-item">Mileage: {{ vehicle.mileage }}</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="container center-align" style="margin-top: 100px;">
+      <h5 class="red-text">You are not logged in</h5>
+      <a href="/accounts/login" class="btn red lighten-1">Login</a>
+    </div>
+  {% endif %}
+
+  <script>
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  </script>
+</body>
+
+</html>

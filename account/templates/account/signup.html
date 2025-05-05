@@ -1,0 +1,434 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+  <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+  <title>Vehicle Service</title>
+
+  <!-- Favicons-->
+  <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+  <!-- Favicons-->
+  <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+  <!-- For iPhone -->
+  <meta name="msapplication-TileColor" content="#00bcd4">
+  <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+  <!-- For Windows Phone -->
+
+
+  <!-- CORE CSS-->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+<link href="{% static 'css/prism.css' %}" rel="stylesheet">
+<link href="{% static 'css/page-center.css' %}" rel="stylesheet">
+<link href="{% static 'css/scroll.css' %}" rel="stylesheet">
+  
+</head>
+
+<body class="cyan">
+  <!-- Start Page Loading -->
+ <!--  <div id="loader-wrapper">
+      <div id="loader"></div>        
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+  </div> -->
+  <!-- End Page Loading -->
+
+
+
+  <div>
+    <div style="padding-left: 6%;" class="col s12 z-depth-4 card-panel">
+      <form class="login-form" method="POST" action="/account/signup" >
+        {% csrf_token %}
+        
+        {% if form.errors %}
+            <div id="card-alert" class="card red lighten-5">
+                      <div class="card-content red-text">
+                        <p>Invalid Details</p>
+                      </div>
+                    </div>
+            {% endif %}
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.username type="text" id="username" class="validate" %}
+            <label for="username" class="center-align">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.first_name type="text" id="username" class="validate" %}
+            <label for="username" class="center-align">First Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.last_name type="text" id="username" class="validate" %}
+            <label for="username" class="center-align">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.email type="email" id="username" class="validate" %}
+            <label for="username" class="center-align">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <!-- <i class="mdi-action-lock-outline prefix"></i> -->
+            
+            {% render_field form.password1 type="password" id="password" class="validate" %}
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <!-- <i class="mdi-action-lock-outline prefix"></i> -->
+            
+            {% render_field form.password2 type="password" id="password" class="validate" %}
+            <label for="password">Confirm Password</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="submit" class="btn" value="Register">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m6 l6">
+            <p class="margin medium-small"><a href="{% url 'login' %}">Login Instead!</a></p>
+          </div>        
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- ================================================
+    Scripts
+    ================================================ -->
+
+  <!-- jQuery Library -->
+   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+      <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="{% static 'js/plugins.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/prism.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/scroll.js' %}"></script>
+
+</body>
+
+</html> {% endcomment %}
+
+
+
+
+
+
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Vehicle Service</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="{% static 'images/favicon/favicon-32x32.png' %}" sizes="32x32">
+    
+    <!-- Materialize CSS & FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+<body class="cyan">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2 l6 offset-l3 z-depth-4 card-panel">
+                <h4 class="center-align">Create an Account</h4>
+                
+                <!-- Form Start -->
+                <form method="POST" action="{% url 'signup' %}" class="signup-form">
+                    {% csrf_token %}
+
+                    <!-- Display Form Errors -->
+                    {% if form.errors %}
+                        <div class="card red lighten-5">
+                            <div class="card-content red-text">
+                                <p><strong>Invalid Details:</strong></p>
+                                <ul>
+                                    {% for field, errors in form.errors.items %}
+                                        {% for error in errors %}
+                                            <li>{{ field|capfirst }}: {{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Username Field -->
+                    <div class="input-field">
+                        {% render_field form.username class="validate" %}
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                    </div>
+
+                    <!-- First Name Field -->
+                    <div class="input-field">
+                        {% render_field form.first_name class="validate" %}
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    </div>
+
+                    <!-- Last Name Field -->
+                    <div class="input-field">
+                        {% render_field form.last_name class="validate" %}
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="input-field">
+                        {% render_field form.email type="email" class="validate" %}
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="input-field">
+                        {% render_field form.password1 type="password" class="validate" %}
+                        <label for="{{ form.password1.id_for_label }}">Password</label>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="input-field">
+                        {% render_field form.password2 type="password" class="validate" %}
+                        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="input-field center-align">
+                        <button type="submit" class="btn waves-effect waves-light">Register</button>
+                    </div>
+
+                    <!-- Login Redirect -->
+                    <div class="input-field center-align">
+                        <p class="margin medium-small">
+                            Already have an account? <a href="{% url 'login' %}">Login Instead!</a>
+                        </p>
+                    </div>
+                </form>
+                <!-- Form End -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Vehicle Service</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'images/favicon/favicon-32x32.png' %}" sizes="32x32">
+
+  <!-- Materialize CSS & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #00bcd4, #009688);
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #signup-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card-panel {
+      max-width: 500px;
+      width: 100%;
+      padding: 40px 35px 30px 35px;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-field input {
+      border-bottom: 1px solid #009688 !important;
+      box-shadow: none !important;
+    }
+
+    .input-field input:focus {
+      border-bottom: 2px solid #00796b !important;
+      box-shadow: 0 1px 0 0 #00796b !important;
+    }
+
+    .input-field label {
+      color: #009688 !important;
+    }
+
+    .btn-custom {
+      background-color: #009688;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #00796b;
+    }
+
+    .login-link a {
+      color: #00796b;
+      text-decoration: underline;
+    }
+
+    .login-link a:hover {
+      color: #004d40;
+    }
+
+    .card-alert {
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="signup-page">
+    <div class="card-panel z-depth-4">
+      <h4 class="center-align">Create an Account</h4>
+
+      <form method="POST" action="{% url 'signup' %}" class="signup-form">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="card-alert red lighten-5">
+          <div class="card-content red-text">
+            <p><i class="material-icons left">error</i>Invalid Details:</p>
+            <ul>
+              {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+              <li>{{ field|capfirst }}: {{ error }}</li>
+              {% endfor %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Username -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.username class="validate" %}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+          </div>
+        </div>
+
+        <!-- First Name -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.first_name class="validate" %}
+            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.last_name class="validate" %}
+            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.email type="email" class="validate" %}
+            <label for="{{ form.email.id_for_label }}">Email</label>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.password1 type="password" class="validate" %}
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.password2 type="password" class="validate" %}
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row">
+          <div class="input-field col s12">
+            <button type="submit" class="btn btn-custom">Register</button>
+          </div>
+        </div>
+
+        <!-- Redirect to Login -->
+        <div class="row">
+          <div class="input-field col s12 center-align login-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login Instead!</a></p>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

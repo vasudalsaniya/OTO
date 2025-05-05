@@ -1,0 +1,181 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Add New Vehicle</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+
+</head>
+<style>
+#id_vehicle_type {
+    margin-top : 60px;
+} .welcome{
+        background: #808080;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #3fada8, #808080);  /* Chrome 10-25, Safari 5.1-6 */
+
+    }</style>
+<body>
+{% if user.is_authenticated %}
+    <div id="wrapper">
+            {% include 'driver/navbar.html' %}
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                           {%if success %}
+                            <div id="card-alert" class="card green lighten-5">
+                      <div class="card-content red-text">
+                        <p>{{success}}</p>
+                      </div>
+                    </div>
+                            {% endif %}
+                        <div class="card">
+                                  <div class="col s12">
+                      <div class="welcome card-panel z-depth-3">
+                        
+                          <span style="padding-left: 35%;" class="white-text"><font color="black" size="20">Add Vehicle</font>
+                      </span>
+                      </div>
+                    </div>
+                            <div class="card-content">
+                            <form action="/vehicle/addVehicle" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="row">
+                                    <div class="col s4 offset-s4 center">
+                                        <input type="submit" class="btn" value="Add">
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">You are not logged in</h1>
+    </div>
+</div>
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+
+</html> {% endcomment %}
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Add New Vehicle</title>
+
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <style>
+    body {
+      background: #f4f4f4;
+    }
+
+    .welcome {
+      background: linear-gradient(to right, #3fada8, #808080);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .welcome h5 {
+      color: white;
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .card {
+      margin-top: 40px;
+    }
+
+    .btn {
+      background-color: #3fada8;
+    }
+
+    #id_vehicle_type {
+      margin-top: 20px;
+    }
+
+    .success-alert {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+    {% include 'driver/navbar.html' %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+
+          {% if success %}
+          <div class="card-panel green lighten-4 success-alert">
+            <span class="green-text text-darken-4">{{ success }}</span>
+          </div>
+          {% endif %}
+
+          <div class="welcome z-depth-2">
+            <h5>Add New Vehicle</h5>
+          </div>
+
+          <div class="card z-depth-3">
+            <div class="card-content">
+              <form action="/vehicle/addVehicle" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="center-align" style="margin-top: 20px;">
+                  <button type="submit" class="btn waves-effect waves-light">Add Vehicle</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container center-align" style="margin-top: 100px;">
+      <h5 class="red-text">You are not logged in</h5>
+      <a href="/accounts/login" class="btn red lighten-1">Login</a>
+    </div>
+  {% endif %}
+</body>
+
+</html>

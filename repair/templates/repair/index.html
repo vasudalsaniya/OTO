@@ -1,0 +1,191 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Repair</title>
+
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<style type="text/css">.welcome{
+        background: #808080;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #3fada8, #808080);  /* Chrome 10-25, Safari 5.1-6 */
+
+    }</style>
+</head>
+
+<body>
+{% if user.is_authenticated %}
+
+        {% include 'driver/navbar.html' %}
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                            {%if success %}
+                            <div id="card-alert" class="card green lighten-5">
+                      <div class="card-content red-text">
+                        <p>{{success}}</p>
+                      </div>
+                    </div>
+                            {% endif %}
+                        <div class="card">
+                           <div class="col s12">
+                      <div class="welcome card-panel z-depth-3">
+                        
+                          <span style="padding-left: 30%;" class="white-text"><font color="black" size="20">Register An Issue</font>
+                      </span>
+                      </div>
+                    </div>
+                            <div class="card-content">
+        
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                <label for="vehicle">Select Vehicle:</label>
+                                <select id="vehicle" name="vehicle">
+                                  {% for vehicle in vehicles %}
+                                    <option value="{{ vehicle.id }}">{{ vehicle.registration_plate }}</option>
+                                  {% endfor %}
+                                </select>
+                                <br><br>
+                                <label for="issue">Issue:</label>
+                                <textarea id="issue" name="issue" rows="4" cols="50"></textarea>
+                                <br><br>
+                                <input type="submit" value="Submit">
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">You are not logged in</h1>
+    </div>
+</div>
+{% endif %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!-- Menu Toggle Script -->
+  
+</body>
+
+</html> {% endcomment %}
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Repair</title>
+
+  <!-- Materialize CSS & JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <style>
+    .welcome {
+      background: -webkit-linear-gradient(to right, #3fada8, #808080);
+    }
+    textarea {
+      resize: none;
+    }
+  </style>
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+
+  {% include 'driver/navbar.html' %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        {% if success %}
+          <div id="card-alert" class="card green lighten-4">
+            <div class="card-content red-text">
+              <p>{{ success }}</p>
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="card">
+          <div class="card-content">
+            <div class="card-panel welcome z-depth-2 center-align">
+              <span class="white-text"><strong style="font-size: 24px;">Register an Issue</strong></span>
+            </div>
+
+            <form method="POST">
+              {% csrf_token %}
+
+              <div class="input-field">
+                <label for="vehicle">Select Vehicle</label>
+                <select id="vehicle" name="vehicle" class="browser-default" required>
+                  <option value="" disabled selected>Select your vehicle</option>
+                  {% for vehicle in vehicles %}
+                    <option value="{{ vehicle.id }}">{{ vehicle.registration_plate }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="input-field">
+                <label for="issue">Issue</label>
+                <textarea id="issue" name="issue" class="materialize-textarea" rows="4" required></textarea>
+              </div>
+
+              <div class="input-field center-align">
+                <button type="submit" class="btn waves-effect teal">Submit</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Initialize Materialize Components -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('select');
+      M.FormSelect.init(elems);
+    });
+  </script>
+
+{% else %}
+
+  <div class="container">
+    <div class="card-panel red lighten-4 center-align">
+      <h5>You are not logged in</h5>
+      <p><a href="/account/login">Click here to login</a></p>
+    </div>
+  </div>
+
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Repair Edit</title>
+
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+{% if user.is_authenticated %}
+
+        {% include 'driver/navbar.html' %}
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                            {%if success %}
+                            <div class="alert alert-success" role="alert">
+                                    {{ success }}
+                                  </div>
+                            {% endif %}
+                        <div class="card">
+                            <div class="card-title center">
+                                <h2>Register Issue</h2>
+                            </div>
+                            <div class="card-content">
+                            <form action="/repair/edit/{{id}}" method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="row">
+                                    <div class="col s4 offset-s4 center">
+                                        <input type="submit" class=" btn-large" value="Add">
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">You are not logged in</h1>
+    </div>
+</div>
+{% endif %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!-- Menu Toggle Script -->
+  
+</body>
+
+</html> {% endcomment %}
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repair Edit</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f0f4f5;
+    }
+
+    .card {
+      margin-top: 50px;
+    }
+
+    .btn-large {
+      background-color: #26a69a;
+    }
+
+    .success-msg {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+    {% include 'driver/navbar.html' %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          {% if success %}
+          <div class="card-panel green lighten-4 green-text text-darken-4 success-msg">
+            {{ success }}
+          </div>
+          {% endif %}
+
+          <div class="card z-depth-3">
+            <div class="card-content">
+              <span class="card-title center-align">Edit Repair Issue</span>
+
+              <form action="/repair/edit/{{ id }}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="center-align">
+                  <button type="submit" class="btn-large waves-effect waves-light">
+                    Update
+                  </button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container center-align" style="margin-top: 100px;">
+      <h5 class="red-text">You are not logged in</h5>
+      <a href="/accounts/login" class="btn red lighten-1">Login</a>
+    </div>
+  {% endif %}
+</body>
+
+</html>
+
+
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Repair Edit</title>
+
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <style>
+    .card {
+      margin-top: 40px;
+    }
+
+    .btn-large {
+      background-color: #26a69a;
+      width: 100%;
+    }
+
+    .alert {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .success {
+      background-color: #d0f0c0;
+      color: #2e7d32;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+    {% include 'driver/navbar.html' %}
+
+    <div class="container">
+      {% if success %}
+        <div class="alert success center-align">
+          {{ success }}
+        </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title center">Edit Repair Issue</span>
+              <form action="/repair/edit/{{ id }}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="row">
+                  <div class="col s12 center">
+                    <button type="submit" class="btn-large waves-effect waves-light">Update</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container center-align" style="margin-top: 100px;">
+      <h5 class="red-text">You are not logged in</h5>
+      <a href="/accounts/login" class="btn red lighten-1">Login</a>
+    </div>
+  {% endif %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      M.updateTextFields();  // Initialize Materialize labels properly if form has initial data
+    });
+  </script>
+</body>
+
+</html>

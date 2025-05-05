@@ -1,0 +1,144 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Repair</title>
+
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<style type="text/css">.welcome{
+        background: #808080;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #3fada8, #808080);  /* Chrome 10-25, Safari 5.1-6 */
+
+    }</style>
+</head> 
+
+
+
+<div class="navbar-fixed">
+    <nav>
+    <div class="nav-wrapper">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <!-- <li><a href="/home">Home</a></li> -->
+            <li><a href="/account/profile">Dashboard</a></li>
+
+                <li><a href="/vehicle/vehicles">View your vehicles</a></li>
+            <li><a class="dropdown-trigger" href="/vehicle/addVehicle" data-target="vehicle"> Add Vehicle</a></li>
+            <li><a href="/repair/issues">Repair Issues</a></li>
+            <li><a href="/repair/repair/">Add Issue </a></li>
+            <li><form action="/account/logout" method="POST">
+                {%csrf_token%}
+                <input type="submit"  class="btn" style="background : #788383;" value="Logout">
+            </form></li>
+        </ul>
+    </div>
+    </nav>
+</div>
+    <script>
+   
+        $(".dropdown-trigger").dropdown();
+   </script> {% endcomment %}
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Repair - Vehicle Service</title>
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #3fada8, #808080);
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: linear-gradient(to right, #00796b, #004d40);
+    }
+
+    .nav-wrapper ul li a {
+      color: white;
+      font-weight: 500;
+    }
+
+    .nav-wrapper ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-logout {
+      background-color: #607d8b;
+    }
+
+    .btn-logout:hover {
+      background-color: #455a64;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="/account/profile" class="brand-logo">Vehicle Service</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/account/profile">Dashboard</a></li>
+          <li><a href="/vehicle/vehicles">View Your Vehicles</a></li>
+          <li><a class="dropdown-trigger" href="/vehicle/addVehicle" data-target="vehicleDropdown">Add Vehicle</a></li>
+          <li><a href="/repair/issues">Repair Issues</a></li>
+          <li><a href="/repair/repair/">Add Issue</a></li>
+          <li>
+            <form action="/account/logout" method="POST" style="margin: 0;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-logout">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Dropdown Structure (if needed in future) -->
+  <ul id="vehicleDropdown" class="dropdown-content">
+    <li><a href="/vehicle/addVehicle">Add New</a></li>
+    <!-- Add more options here if needed -->
+  </ul>
+
+  <!-- Scripts -->
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems, { constrainWidth: false });
+    });
+  </script>
+
+</body>
+
+</html>

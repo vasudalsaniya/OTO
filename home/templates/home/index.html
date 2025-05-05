@@ -1,0 +1,142 @@
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vehicle Service</title>
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"
+    />
+    <link
+      href="{% static 'css/style.css' %}"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <style>
+      nav {
+        background: #808080; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #3fada8,
+          #808080
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #3fada8, #808080);
+      }
+    </style>
+  </head>
+  <body>
+
+
+
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script src="{% static 'js/init.js' %}"></script>
+  </body>
+</html> {% endcomment %}
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vehicle Service</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <style>
+      nav {
+        background: linear-gradient(to right, #3fada8, #808080);
+      }
+
+      .brand-logo {
+        font-weight: 500;
+      }
+
+      .dashboard-card {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="{% url 'home' %}" class="brand-logo">Vehicle Service</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <h4 class="center-align">Welcome to the Vehicle Service Dashboard</h4>
+
+      <div class="row dashboard-card">
+        <div class="col s12 m6">
+          <div class="card teal lighten-1">
+            <div class="card-content white-text">
+              <span class="card-title">Upcoming Services</span>
+              <p>You have 3 vehicles scheduled for servicing this week.</p>
+            </div>
+            <div class="card-action">
+              <a href="{% url 'appointments' %}" class="white-text">View Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="card grey darken-2">
+            <div class="card-content white-text">
+              <span class="card-title">Service History</span>
+              <p>Check your past service records and maintenance logs.</p>
+            </div>
+            <div class="card-action">
+              <a href="{% url 'history' %}" class="white-text">View History</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        M.AutoInit();
+      });
+    </script>
+  </body>
+</html>

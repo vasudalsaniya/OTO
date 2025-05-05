@@ -1,0 +1,246 @@
+{% comment %} {% load static %}
+{% load crispy_forms_tags %}
+
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+  <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+  <title>Vehicle Service</title>
+
+  <!-- Favicons-->
+  <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+  <!-- Favicons-->
+  <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+  <!-- For iPhone -->
+  <meta name="msapplication-TileColor" content="#00bcd4">
+  <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+  <!-- For Windows Phone -->
+
+
+  <!-- CORE CSS-->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+<link href="{% static 'css/prism.css' %}" rel="stylesheet">
+<link href="{% static 'css/page-center.css' %}" rel="stylesheet">
+<link href="{% static 'css/scroll.css' %}" rel="stylesheet">
+  
+</head>
+
+<body class="cyan">
+
+
+  <div id="login-page" class="row">
+    <div style="padding-left: 6%;" class="col s12 z-depth-4 card-panel">
+      <form class="login-form" method="POST" >
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div id="card-alert" class="card red lighten-5">
+                      <div class="card-content red-text">
+                        <p>Wrong Username/Password!</p>
+                      </div>
+                    </div>
+            {% endif %}
+        
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.username type="text" id="username" class="validate" %}
+            <label for="username" class="center-align">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            
+            {% render_field form.password type="password" id="password" class="validate" %}
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="padding-left: 40%;" class="input-field col s12">
+            <input type="submit" class="btn s12" value="Login">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m6 l6">
+            <p class="margin medium-small"><a href="{% url 'signup' %}">Register Now!</a></p>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- ================================================
+    Scripts
+    ================================================ -->
+
+  <!-- jQuery Library -->
+   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+      <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="{% static 'js/plugins.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/prism.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/scroll.js' %}"></script>
+
+</body>
+
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Vehicle Service</title>
+
+  <!-- Materialize CSS and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #00bcd4, #009688);
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card-panel {
+      max-width: 450px;
+      width: 100%;
+      padding: 40px 35px 30px 35px;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-field input {
+      border-bottom: 1px solid #009688 !important;
+      box-shadow: none !important;
+    }
+
+    .input-field input:focus {
+      border-bottom: 2px solid #00796b !important;
+      box-shadow: 0 1px 0 0 #00796b !important;
+    }
+
+    .input-field label {
+      color: #009688 !important;
+    }
+
+    .btn-custom {
+      background-color: #009688;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #00796b;
+    }
+
+    .register-link a {
+      color: #00796b;
+      text-decoration: underline;
+    }
+
+    .register-link a:hover {
+      color: #004d40;
+    }
+
+    .card-alert {
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="login-page">
+    <div class="card-panel z-depth-4">
+      <form method="POST" class="login-form">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <div class="card-alert red lighten-5">
+            <div class="card-content red-text">
+              <p><i class="material-icons left">error</i>Wrong Username or Password!</p>
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.username type="text" id="username" class="validate" %}
+            <label for="username">Username</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            {% render_field form.password type="password" id="password" class="validate" %}
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="submit" class="btn btn-custom" value="Login">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 register-link center-align">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Register Now!</a></p>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>
